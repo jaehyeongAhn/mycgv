@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--jspl 에서의 제어문 중 if~else : <choose> <when> <otherwise></otherwise></choose> 형태로 구현  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,13 @@
 				<a href="http://localhost:9000/mycgv/index.do" target="_parent">
 					<img src="http://localhost:9000/mycgv/resources/images/logoRed.png" width="150" height="70"></a>
 				<span>CULTURFLEX</span>
-			</div>			
+			</div>	
+				<c:if test="${sessionScope.svo != null}">
+				<span>${sessionScope.svo.name}님 반갑습니다</span>
+				</c:if>
+			
+			<c:choose>
+			<c:when test="${sessionScope.svo == null}">		
 			<div>
 				<img src="http://localhost:9000/mycgv/resources/images/hcard.png">
 				<a href="http://localhost:9000/mycgv/login.do" target="_parent" >
@@ -41,42 +48,45 @@
 					<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
 					<span>공지사항</span>
 				</a>
-				<a href="http://localhost:9000/mycgv/admin.do" target="_parent" >
-					<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
-					<span>Admin</span>
-				</a>				
+							
 			</div>
+			</c:when>
 			
-			<!-- 
+			<c:otherwise>
 			<div>
 				<img src="http://localhost:9000/mycgv/resources/images/hcard.png">
-				<a href="http://localhost:9000/mycgv/login/logout.jsp" target="_parent" >
+				<a href="http://localhost:9000/mycgv/logout.do" target="_parent" >
 					<img src="http://localhost:9000/mycgv/resources/images/loginPassword.png">
 					<span>로그아웃</span>
 				</a>
-				<a href="http://localhost:9000/mycgv/join/join.jsp" target="_parent" >
+				<a href="http://localhost:9000/mycgv/join.do" target="_parent" >
 					<img src="http://localhost:9000/mycgv/resources/images/loginJoin.png">
 					<span>회원가입</span>
 				</a>
-				<a href="http://localhost:9000/mycgv/mycgv/mycgv.jsp" target="_parent">
+				<a href="http://localhost:9000/mycgv/mycgv.do" target="_parent">
 					<img src="http://localhost:9000/mycgv/resources/images/loginMember.png">
 					<span>MY CGV</span>
 				</a>
-				<a href="http://localhost:9000/mycgv/board/board_list.jsp" target="_parent" >
+				<a href="http://localhost:9000/mycgv/board_list.do" target="_parent" >
 					<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
 					<span>게시판</span>
 				</a>
-				<a href="http://localhost:9000/mycgv/notice/notice_list.jsp" target="_parent" >
+				<a href="http://localhost:9000/mycgv/notice_list.do" target="_parent" >
 					<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
 					<span>공지사항</span>
-				</a>					
-					<a href="http://localhost:9000/mycgv/admin/admin.jsp" target="_parent" >
-						<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
-						<span>Admin</span>
-					</a>									
+				</a>
+				<!-- 관리자 계정인 경우에만admin 메뉴를 open -->
+				<c:if test="${sessionScope.svo.id == 'admin'}">
+				<a href="http://localhost:9000/mycgv/admin.do" target="_parent" >
+					<img src="http://localhost:9000/mycgv/resources/images/loginCustomer.png">
+					
+					<span>Admin</span>
+				</a>
+				</c:if>
+				 				
 			</div>
-			-->
-			
+			</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="header_contents2">
 			<nav>

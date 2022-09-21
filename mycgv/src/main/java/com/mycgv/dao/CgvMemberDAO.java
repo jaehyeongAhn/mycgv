@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mycgv.vo.CgvMemberVO;
+import com.mycgv.vo.SessionVO;
 
 /**
  * 1. dbcoon extends 삭제 @Repository 형태로 변환
@@ -62,7 +63,7 @@ public class CgvMemberDAO {
 	/**
 	 * select : 로그인
 	 */
-	public int select(CgvMemberVO vo) {
+	public SessionVO select(CgvMemberVO vo) {
 		
 		return sqlSession.selectOne("mapper.member.login", vo);
 	}

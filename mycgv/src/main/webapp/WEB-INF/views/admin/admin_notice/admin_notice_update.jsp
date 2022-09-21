@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +59,15 @@
 				<li>
 					<label>파일첨부</label>
 					<input type="file" name="file1">
-					<span id="upload_file">${vo.nfile}</span>
+					<!-- jstl의 if는 조건이 단 하나로 체크될때 사용, 조건이 여러개로 체크될 경우 choose/when -->
+					<c:choose>
+						<c:when test="${vo.nfile != null }"><!--if~else  -->
+						<span id="upload_file">${vo.nfile}</span>
+						</c:when>
+						<c:otherwise>
+							<span id="upload_file">선택된 파일 없음</span>
+						</c:otherwise>						
+					</c:choose>
 				</li>
 				<li>
 					<button type="button" class="btn_style" id="btnNoticeUpdate">수정완료</button>
